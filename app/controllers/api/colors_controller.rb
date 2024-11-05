@@ -9,6 +9,7 @@ class Api::ColorsController < ApplicationController
 
   def show
     method_name = params[:method_name]
+    color = params[:color]
 
     result = case method_name
     when 'complementary'
@@ -23,6 +24,6 @@ class Api::ColorsController < ApplicationController
       split_complementary
     end
 
-    render json: result
+    render json: color
   end
 end
