@@ -1,4 +1,5 @@
 class Api::ColorsController < ApplicationController
+  include Api::ColorsHelper
   # TODO: create an API server to have these APIs:
   # GET /colors/complementary which would return a complementary color combination by param[:color]
   # GET /colors/triadic which would return a triadic color combination by param[:color]
@@ -9,6 +10,11 @@ class Api::ColorsController < ApplicationController
   def show
     method_name = params[:method_name]
 
-    render json: { result: method_name }
+    result = case method_name
+    when 'complementary'
+      complementary
+    end
+
+    render json: result
   end
 end
