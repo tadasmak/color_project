@@ -13,6 +13,14 @@ class Api::ColorsController < ApplicationController
     result = case method_name
     when 'complementary'
       complementary
+    when 'triadic'
+      triadic
+    when 'tetradic'
+      tetradic
+    when 'analogous'
+      analogous
+    when 'split_complementary'
+      split_complementary
     end
 
     render json: result
