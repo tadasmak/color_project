@@ -6,5 +6,9 @@ class Api::ColorsController < ApplicationController
   # GET /colors/analogous which would return a analogous color combination by param[:color]
   # GET /colors/split_complementary which would return a split_complementary color combination by param[:color]
 
-  
+  def show
+    method_name = params[:method_name]
+
+    render json: { result: method_name }
+  end
 end

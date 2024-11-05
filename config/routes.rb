@@ -7,4 +7,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  namespace :api do
+    get "colors/:method_name", to: "colors#show"
+  end
 end
