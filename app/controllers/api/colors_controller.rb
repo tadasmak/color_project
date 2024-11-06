@@ -13,6 +13,8 @@ class Api::ColorsController < ApplicationController
 
     return render status: :bad_request, json: { error: 'Hex or RGB color format required' } unless valid_color?(color)
 
+    color_type = determine_color_type(color)
+
     result = case method_name
     when 'complementary'
       complementary
@@ -26,6 +28,6 @@ class Api::ColorsController < ApplicationController
       split_complementary
     end
 
-    render json: result
+    render json: color_type
   end
 end
