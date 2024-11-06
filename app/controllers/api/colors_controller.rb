@@ -11,9 +11,9 @@ class Api::ColorsController < ApplicationController
     method_name = params[:method_name]
     color = params[:color]
 
-    return render status: :bad_request, json: { error: 'Hex or RGB color format required' } unless valid_color?(color)
-
     color_type = determine_color_type(color)
+
+    return render status: :bad_request, json: { error: 'Hex or RGB color format required' } unless color_type
 
     result = case method_name
     when 'complementary'

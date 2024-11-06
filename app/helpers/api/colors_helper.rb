@@ -1,11 +1,5 @@
 module Api::ColorsHelper
 
-  def valid_color?(color)
-    color_object = Color.new(color)
-
-    color_object.rgb? || color_object.hex?
-  end
-
   def determine_color_type(color)
     color_object = Color.new(color)
 
