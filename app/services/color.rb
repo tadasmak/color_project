@@ -13,29 +13,37 @@ class Color
     color.is_a?(String) && color.match?(/^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/)
   end
 
+  def rgb_values
+    if hex?
+      hex_elements = hex.gsub('#', '').scan(/../)
+      r, g, b = hex_elements.map(&:hex)
+    elsif rgb?
+      rgb_elements = color.gsub('rgb(', '').gsub(')', '').split(',').map(&:strip).map(&:to_i)
+      r, g, b = rgb_elements if rgb_elements.length == 3
+    end
+
+    return [r, g, b]
+  end
+
   def hex
     return color if hex?
 
     if rgb?
-      rgb_values = color.gsub('rgb(', '').gsub(')', '').split(',').map(&:strip).map(&:to_i).map { |color| color.to_s(16) }
-      r, g, b = rgb_values if rgb_values.length == 3
-
+      r, g, b = rgb_values.map { |color| color.to_s(16) }
       return "##{r}#{g}#{b}"
-    else
-      nil
     end
+      
+    nil
   end
 
   def rgb
     return color if rgb?
 
     if hex?
-      hex_values = color.gsub('#', '').scan(/../)
-      r, g, b = hex_values.map(&:hex)
-      
+      r, g, b = rgb_values
       return "rgb(#{r}, #{g}, #{b})"
-    else
-      nil
     end
+
+    nil
   end
 end
