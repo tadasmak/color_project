@@ -3,9 +3,11 @@ module Api::ColorsHelper
   def handle_calculation(method_name, color_type, color)
     color_object = Color.new(color)
 
+    rgb_array = color_object.rgb_array
+
     case method_name
     when 'complementary'
-      complementary
+      complementary(rgb_array)
     when 'triadic'
       triadic
     when 'tetradic'
@@ -15,6 +17,7 @@ module Api::ColorsHelper
     when 'split_complementary'
       split_complementary
     end
+
   end
 
   def determine_color_type(color)
@@ -26,8 +29,12 @@ module Api::ColorsHelper
     nil
   end
     
-  def complementary
-    { color: "##{SecureRandom.hex(3)}" }
+  def complementary(rgb_values)
+    r = 255 - rgb_values[:r]
+    g = 255 - rgb_values[:g]
+    b = 255 - rgb_values[:b]
+
+    {r:, g:, b:}
   end
 
   def triadic; end
