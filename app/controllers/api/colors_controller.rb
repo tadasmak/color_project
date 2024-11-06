@@ -15,19 +15,8 @@ class Api::ColorsController < ApplicationController
 
     return render status: :bad_request, json: { error: 'Hex or RGB color format required' } unless color_type
 
-    result = case method_name
-    when 'complementary'
-      complementary
-    when 'triadic'
-      triadic
-    when 'tetradic'
-      tetradic
-    when 'analogous'
-      analogous
-    when 'split_complementary'
-      split_complementary
-    end
+    result = handle_calculation(method_name, color_type, color)
 
-    render json: color_type
+    render json: result
   end
 end
