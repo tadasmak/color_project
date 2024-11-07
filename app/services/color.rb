@@ -9,20 +9,39 @@ class Color
     return color if hex?
 
     if rgb?
-      r, g, b = rgb_array.map { |color| color.to_s(16) }
-      return "##{r}#{g}#{b}"
+      a, b, c = rgb_to_hex
+    elsif hsl?
+      r, g, b = hsl_to_rgb
+      a, b, c = rgb_to_hex([r, g, b])
     end
-      
+
+    "##{a}#{b}#{c}" if a && b && c
+
     nil
   end
 
   def rgb
     return color if rgb?
 
-    if hex?
-      r, g, b = rgb_array
-      return "rgb(#{r}, #{g}, #{b})"
+    r, g, b = hsl_to_rgb if hsl?
+    r, g, b = hex_to_rgb if hex?
+
+    "rgb(#{r}, #{g}, #{b})" if r && g && b
+
+    nil
+  end
+
+  def hsl
+    return color if hsl?
+
+    if rgb?
+      h, s, l = rgb_to_hsl
+    elsif hex?
+      r, g, b = hex_to_rgb
+      h, s, l = rgb_to_hsl([r, g, b])
     end
+
+    "hsl(#{h}, #{s}%, #{l}%)" if h && s && length
 
     nil
   end
@@ -32,23 +51,28 @@ class Color
   end
 
   def rgb?
-    color.is_a?(String) && color.match?(/^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/)
+    color.is_a?(String) && color.match?(/^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/) &&
+    $1.to_i.between?(0, 255) &&
+    $2.to_i.between?(0, 255) &&
+    $3.to_i.between?(0, 255)
+  end
+
+  def hsl?
+    color.is_a?(String) && color.match?(/^hsl\(\s*(\d{1,3})\s*,\s*(\d{1,3})%\s*,\s*(\d{1,3})%\s*\)$/) &&
+    $1.to_i.between?(0, 360) &&
+    $2.to_i.between?(0, 100) &&
+    $3.to_i.between?(0, 100)
   end
 
   def rgb_array
-    if hex?
-      hex_elements = hex.gsub('#', '').scan(/../)
-      r, g, b = hex_elements.map(&:hex)
-    elsif rgb?
-      rgb_elements = color.gsub('rgb(', '').gsub(')', '').split(',').map(&:strip).map(&:to_i)
-      r, g, b = rgb_elements if rgb_elements.length == 3
-    end
+    rgb_elements = rgb..gsub('rgb(', '').gsub(')', '').split(',').map(&:strip).map(&:to_i)
 
+    r, g, b = rgb_elements if rgb_elements.length == 3
     return [r, g, b]
   end
 
-  def hsl_array
-    r, g, b = rgb_array
+  def rgb_to_hsl(rgb)
+    r, g, b = rgb || rgb_array
 
     r /= 255.0;
     g /= 255.0;
@@ -83,5 +107,17 @@ class Color
     [hue, saturation, luminance]
   end
 
+  def hsl_to_rgb
+    # TODO: HSL to RGB conversion
+  end
+
+  def rgb_to_hex(rgb)
+    r, g, b = rgb || rgb_array
+    [r, g, b].map { |color| color.to_s(16) }
+  end
+
+  def hex_to_rgb
+    hex.gsub('#', '').scan(/../).map(&:hex)
+  end
   
 end
