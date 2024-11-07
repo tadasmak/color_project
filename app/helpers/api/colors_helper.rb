@@ -9,7 +9,7 @@ module Api::ColorsHelper
 
     calculated_colors = case method_name
     when 'complementary'
-      complementary(rgb_array)
+      complementary
     when 'triadic'
       triadic
     when 'tetradic'
