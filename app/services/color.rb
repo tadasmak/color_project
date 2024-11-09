@@ -58,20 +58,27 @@ class Color
   end
 
   def hsl?
-    color.is_a?(String) && color.match?(/^hsl\(\s*(\d{1,3})\s*,\s*(\d{1,3})%\s*,\s*(\d{1,3})%\s*\)$/) &&
+    color.is_a?(String) && color.match?(/^hsl\(\s*(\d{1,3})\s*,\s*(\d{1,2}(?:\.\d+)?|100)%\s*,\s*(\d{1,2}(?:\.\d+)?|100)%\s*\)$/) &&
     $1.to_i.between?(0, 360) &&
-    $2.to_i.between?(0, 100) &&
-    $3.to_i.between?(0, 100)
+    $2.to_f.between?(0, 100) &&
+    $3.to_f.between?(0, 100)
+  end
+
+  def hex_array
+    color.gsub('#', '').scan(/../).map(&:to_i) if hex?
   end
 
   def rgb_array
-    rgb_elements = rgb..gsub('rgb(', '').gsub(')', '').split(',').map(&:strip).map(&:to_i)
+    color.gsub('rgb(', '').gsub(')', '').split(',').map(&:strip).map(&:to_i) if rgb?
+  end
 
-    r, g, b = rgb_elements if rgb_elements.length == 3
-    return [r, g, b]
+  def hsl_array
+    color.gsub('hsl(', '').gsub(')', '').split(/[,\s]+/).map(&:strip).map(&:to_f) if hsl?
   end
 
   def rgb_to_hsl(rgb)
+    return nil unless rgb?
+
     r, g, b = rgb || rgb_array
 
     r /= 255.0;
@@ -108,16 +115,60 @@ class Color
   end
 
   def hsl_to_rgb
-    # TODO: HSL to RGB conversion
+    return nil unless hsl?
+
+    hue, saturation, luminance = hsl_array
+
+    saturation /= 100.0
+    luminance /= 100.0
+
+    chroma = (1 - (2 * luminance - 1).abs) * saturation
+    x = chroma * (1 - ((hue / 60.0) % 2 - 1).abs)
+    m = luminance - chroma / 2.0
+
+    if (0 <= hue && hue < 60)
+      r = chroma
+      g = x
+      b = 0
+    elsif (60 <= hue && hue < 120)
+      r = x
+      g = chroma
+      b = 0
+    elsif (120 <= hue && hue < 180)
+      r = 0
+      g = chroma
+      b = x
+    elsif (180 <= hue && hue < 240)
+      r = 0
+      g = x
+      b = chroma
+    elsif (240 <= hue && hue < 300)
+      r = x
+      g = 0
+      b = chroma
+    elsif (300 <= hue && hue < 360)
+      r = chroma
+      g = 0
+      b = x
+    end
+
+    r = ((r + m) * 255).round
+    g = ((g + m) * 255).round
+    b = ((b + m) * 255).round
+
+    [r, g, b]
   end
 
   def rgb_to_hex(rgb)
+    return nil unless rgb?
+
     r, g, b = rgb || rgb_array
     [r, g, b].map { |color| color.to_s(16) }
   end
 
   def hex_to_rgb
-    hex.gsub('#', '').scan(/../).map(&:hex)
+    return nil unless hex?
+
+    hex_array.map(&:hex)
   end
-  
 end
