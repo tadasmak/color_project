@@ -8,16 +8,11 @@ class Color
   def hex
     return color if hex?
 
-    if rgb?
-      a, b, c = rgb_to_hex
-    elsif hsl?
-      r, g, b = hsl_to_rgb
-      a, b, c = rgb_to_hex([r, g, b])
-    end
+    rgb if hsl?
+    a, b, c = rgb_to_hex
 
-    "##{a}#{b}#{c}" if a && b && c
-
-    nil
+    @color = "##{a}#{b}#{c}" if a && b && c
+    @color
   end
 
   def rgb
@@ -26,24 +21,18 @@ class Color
     r, g, b = hsl_to_rgb if hsl?
     r, g, b = hex_to_rgb if hex?
 
-    "rgb(#{r}, #{g}, #{b})" if r && g && b
-
-    nil
+    @color = "rgb(#{r}, #{g}, #{b})" if r && g && b
+    @color
   end
 
   def hsl
     return color if hsl?
 
-    if rgb?
-      h, s, l = rgb_to_hsl
-    elsif hex?
-      r, g, b = hex_to_rgb
-      h, s, l = rgb_to_hsl([r, g, b])
-    end
+    rgb if hex?
+    h, s, l = rgb_to_hsl
 
-    "hsl(#{h}, #{s}%, #{l}%)" if h && s && length
-
-    nil
+    @color = "hsl(#{h}, #{s}%, #{l}%)" if h && s && l
+    @color
   end
 
   def hex?
@@ -65,21 +54,24 @@ class Color
   end
 
   def hex_array
-    color.gsub('#', '').scan(/../).map(&:to_i) if hex?
+    hex
+    color.gsub('#', '').scan(/../) if hex?
   end
 
   def rgb_array
+    rgb
     color.gsub('rgb(', '').gsub(')', '').split(',').map(&:strip).map(&:to_i) if rgb?
   end
 
   def hsl_array
+    hsl
     color.gsub('hsl(', '').gsub(')', '').split(/[,\s]+/).map(&:strip).map(&:to_f) if hsl?
   end
 
-  def rgb_to_hsl(rgb)
+  def rgb_to_hsl
     return nil unless rgb?
 
-    r, g, b = rgb || rgb_array
+    r, g, b = rgb_array
 
     r /= 255.0;
     g /= 255.0;
@@ -159,10 +151,10 @@ class Color
     [r, g, b]
   end
 
-  def rgb_to_hex(rgb)
+  def rgb_to_hex
     return nil unless rgb?
 
-    r, g, b = rgb || rgb_array
+    r, g, b = rgb_array
     [r, g, b].map { |color| color.to_s(16) }
   end
 
