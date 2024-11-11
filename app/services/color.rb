@@ -155,7 +155,11 @@ class Color
     return nil unless rgb?
 
     r, g, b = rgb_array
-    [r, g, b].map { |color| color.to_s(16) }
+    [r, g, b].map do |color|
+      hex = color.to_s(16)
+      hex = hex.insert(0, '0') if hex.length == 1
+      color = hex
+    end
   end
 
   def hex_to_rgb
