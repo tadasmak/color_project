@@ -9,7 +9,7 @@ class Api::ColorsController < ApplicationController
 
   def show
     method_name = params[:method_name]
-    color = params[:color]
+    color = params[:color].downcase
 
     color_type = determine_color_type(color)
 
