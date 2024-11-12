@@ -32,18 +32,28 @@ module Api::ColorsHelper
   end
 
   def triadic(hsl_array, color_type)
-    color1 = hsl_array.dup
-    color1[0] = (color1[0] + 120) % 360
-
-    color2 = hsl_array.dup
-    color2[0] = (color2[0] + 240) % 360
-
     colors = []
-    colors.push(convert_to_color_type(color1, color_type))
-    colors.push(convert_to_color_type(color2, color_type))
+
+    for i in 1..2 do
+      color = hsl_array.dup
+      color[0] = (color[0] + (120 * i)) % 360
+      colors.push(convert_to_color_type(color, color_type))
+    end
+
+    colors
   end
 
-  def tetradic; end
+  def tetradic
+    colors = []
+
+    for i in 1..3 do
+      color = hsl_array.dup
+      color[0] = (color[0] + (90 * i)) % 360
+      colors.push(convert_to_color_type(color, color_type))
+    end
+
+    colors
+  end
 
   def analogous; end
 
