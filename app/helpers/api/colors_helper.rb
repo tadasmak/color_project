@@ -18,6 +18,8 @@ module Api::ColorsHelper
       analogous(hsl_array, color_type)
     when 'split_complementary'
       split_complementary(hsl_array, color_type)
+    when 'monochromatic'
+      monochromatic(hsl_array, color_type)
     end
 
     calculated_colors.each { |c| result.push(c) }
@@ -84,6 +86,11 @@ module Api::ColorsHelper
     colors.push(convert_to_color_type(color3, color_type))
 
     colors
+  end
+
+  def monochromatic(hsl_array, color_type)
+    # TODO: implement monochromatic (there are no exact calculations)
+    # after front-end is done
   end
 
   def convert_to_color_type(hsl_array, color_type)
