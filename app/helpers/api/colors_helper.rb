@@ -65,9 +65,26 @@ module Api::ColorsHelper
     color2 = hsl_array.dup
     color2[0] = (color2[0] - 30) % 360
     colors.push(convert_to_color_type(color2, color_type))
+
+    colors
   end
 
-  def split_complementary; end
+  def split_complementary(hsl_array, color_type)
+    colors = []
+
+    color1 = hsl_array.dup
+    color1[0] = (color1[0] + 180) % 360
+
+    color2 = color1.dup
+    color2[0] = (color2[0] + 30) % 360
+    colors.push(convert_to_color_type(color2, color_type))
+
+    color3 = color1.dup
+    color3[0] = (color3[0] - 30) % 360
+    colors.push(convert_to_color_type(color3, color_type))
+
+    colors
+  end
 
   def convert_to_color_type(hsl_array, color_type)
     h, s, l = hsl_array
