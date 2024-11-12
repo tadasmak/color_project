@@ -11,31 +11,37 @@ module Api::ColorsHelper
     when 'complementary'
       complementary(hsl_array, color_type)
     when 'triadic'
-      triadic
+      triadic(hsl_array, color_type)
     when 'tetradic'
-      tetradic
+      tetradic(hsl_array, color_type)
     when 'analogous'
-      analogous
+      analogous(hsl_array, color_type)
     when 'split_complementary'
-      split_complementary
+      split_complementary(hsl_array, color_type)
     end
 
     calculated_colors.each { |c| result.push(c) }
     result
   end
-
-  def form_rgb(rgb_values)
-    return "rgb(#{rgb_values[:r]}, #{rgb_values[:g]}, #{rgb_values[:b]})"
-  end
     
   def complementary(hsl_array, color_type)
-    color1 = hsl_array
+    color1 = hsl_array.dup
     color1[0] = (color1[0] + 180) % 360
 
     [convert_to_color_type(color1, color_type)]
   end
 
-  def triadic; end
+  def triadic(hsl_array, color_type)
+    color1 = hsl_array.dup
+    color1[0] = (color1[0] + 120) % 360
+
+    color2 = hsl_array.dup
+    color2[0] = (color2[0] + 240) % 360
+
+    colors = []
+    colors.push(convert_to_color_type(color1, color_type))
+    colors.push(convert_to_color_type(color2, color_type))
+  end
 
   def tetradic; end
 
