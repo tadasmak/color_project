@@ -43,7 +43,7 @@ module Api::ColorsHelper
     colors
   end
 
-  def tetradic
+  def tetradic(hsl_array, color_type)
     colors = []
 
     for i in 1..3 do
@@ -55,7 +55,17 @@ module Api::ColorsHelper
     colors
   end
 
-  def analogous; end
+  def analogous(hsl_array, color_type)
+    colors = []
+
+    color1 = hsl_array.dup
+    color1[0] = (color1[0] + 30) % 360
+    colors.push(convert_to_color_type(color1, color_type))
+
+    color2 = hsl_array.dup
+    color2[0] = (color2[0] - 30) % 360
+    colors.push(convert_to_color_type(color2, color_type))
+  end
 
   def split_complementary; end
 
