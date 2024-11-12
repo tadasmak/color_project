@@ -3,13 +3,13 @@ module Api::ColorsHelper
   def handle_calculation(method_name, color_type, color)
     color_object = Color.new(color)
 
-    rgb_array = color_object.rgb_array
+    hsl_array = color_object.hsl_array
 
     result = [color]
 
     calculated_colors = case method_name
     when 'complementary'
-      complementary
+      complementary(hsl_array, color_type)
     when 'triadic'
       triadic
     when 'tetradic'
@@ -20,42 +20,19 @@ module Api::ColorsHelper
       split_complementary
     end
 
-    if color_type == 'hex'
-      calculated_colors.each do |c|
-        result.push(form_hex(c))
-      end
-    elsif color_type == 'rgb'
-      calculated_colors.each do |c|
-        result.push(form_rgb(c))
-      end
-    end
-
+    calculated_colors.each { |c| result.push(c) }
     result
-  end
-
-  def determine_color_type(color)
-    color_object = Color.new(color)
-
-    return 'rgb' if color_object.rgb?
-    return 'hex' if color_object.hex?
-
-    nil
   end
 
   def form_rgb(rgb_values)
     return "rgb(#{rgb_values[:r]}, #{rgb_values[:g]}, #{rgb_values[:b]})"
   end
-
-  def form_hex(rgb_values)
-    return "##{rgb_values[:r].to_s(16)}#{rgb_values[:g].to_s(16)}#{rgb_values[:b].to_s(16)}"
-  end
     
-  def complementary(rgb_values)
-    r = 255 - rgb_values[:r]
-    g = 255 - rgb_values[:g]
-    b = 255 - rgb_values[:b]
+  def complementary(hsl_array, color_type)
+    color1 = hsl_array
+    color1[0] = (color1[0] + 180) % 360
 
-    [{r:, g:, b:}]
+    [convert_to_color_type(color1, color_type)]
   end
 
   def triadic; end
@@ -66,4 +43,24 @@ module Api::ColorsHelper
 
   def split_complementary; end
 
+  def convert_to_color_type(hsl_array, color_type)
+    h, s, l = hsl_array
+    color_code = "hsl(#{h}, #{s}%, #{l}%)"
+
+    color_object = Color.new(color_code)
+
+    return color_object.rgb if color_type == 'rgb'
+    return color_object.hex if color_type == 'hex'
+    
+    nil
+  end
+
+  def determine_color_type(color)
+    color_object = Color.new(color)
+
+    return 'rgb' if color_object.rgb?
+    return 'hex' if color_object.hex?
+
+    nil
+  end
 end
