@@ -19,9 +19,6 @@
       ],
       "get": {
         "summary": "Get complementary colors combination",
-        "tags": [
-          "Color"
-        ],
         "responses": {
           "200": {
             "description": "successful"
@@ -46,9 +43,6 @@
       ],
       "get": {
         "summary": "Get triadic colors combination",
-        "tags": [
-          "Color"
-        ],
         "responses": {
           "200": {
             "description": "successful"
@@ -73,9 +67,6 @@
       ],
       "get": {
         "summary": "Get tetradic colors combination",
-        "tags": [
-          "Color"
-        ],
         "responses": {
           "200": {
             "description": "successful"
@@ -100,9 +91,6 @@
       ],
       "get": {
         "summary": "Get analogous colors combination",
-        "tags": [
-          "Color"
-        ],
         "responses": {
           "200": {
             "description": "successful"
@@ -127,9 +115,6 @@
       ],
       "get": {
         "summary": "Get split complementary colors combination",
-        "tags": [
-          "Color"
-        ],
         "responses": {
           "200": {
             "description": "successful"
