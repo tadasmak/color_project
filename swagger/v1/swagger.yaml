@@ -1,0 +1,86 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/colors/complementary":
+    parameters:
+    - name: color
+      in: query
+      required: true
+      description: 'Color value in rgb or hex format (e.g. rgb(120, 240, 15), #78f00f)'
+      schema:
+        type: string
+    get:
+      summary: Get complementary colors combination
+      responses:
+        '200':
+          description: successful
+        '400':
+          description: invalid parameter
+  "/api/colors/triadic":
+    parameters:
+    - name: color
+      in: query
+      required: true
+      description: 'Color value in rgb or hex format (e.g. rgb(120, 240, 15), #78f00f)'
+      schema:
+        type: string
+    get:
+      summary: Get triadic colors combination
+      responses:
+        '200':
+          description: successful
+        '400':
+          description: invalid parameter
+  "/api/colors/tetradic":
+    parameters:
+    - name: color
+      in: query
+      required: true
+      description: 'Color value in rgb or hex format (e.g. rgb(120, 240, 15), #78f00f)'
+      schema:
+        type: string
+    get:
+      summary: Get tetradic colors combination
+      responses:
+        '200':
+          description: successful
+        '400':
+          description: invalid parameter
+  "/api/colors/analogous":
+    parameters:
+    - name: color
+      in: query
+      required: true
+      description: 'Color value in rgb or hex format (e.g. rgb(120, 240, 15), #78f00f)'
+      schema:
+        type: string
+    get:
+      summary: Get analogous colors combination
+      responses:
+        '200':
+          description: successful
+        '400':
+          description: invalid parameter
+  "/api/colors/split_complementary":
+    parameters:
+    - name: color
+      in: query
+      required: true
+      description: 'Color value in rgb or hex format (e.g. rgb(120, 240, 15), #78f00f)'
+      schema:
+        type: string
+    get:
+      summary: Get split complementary colors combination
+      responses:
+        '200':
+          description: successful
+        '400':
+          description: invalid parameter
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
