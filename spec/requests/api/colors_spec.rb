@@ -8,6 +8,7 @@ RSpec.describe 'api/colors', type: :request do
               description: 'Color value in rgb or hex format (e.g. rgb(120, 240, 15), #78f00f)'
 
     get('Get complementary colors combination') do
+      tags 'Color'
       response(200, 'successful') do
         schema type: :array,
                items: { type: :string, description: 'Complementary colors combination'}
@@ -35,6 +36,7 @@ RSpec.describe 'api/colors', type: :request do
               description: 'Color value in rgb or hex format (e.g. rgb(120, 240, 15), #78f00f)'
 
     get('Get triadic colors combination') do
+      tags 'Color'
       response(200, 'successful') do
         schema type: :array,
                items: { type: :string, description: 'Triadic colors combination'}
@@ -62,6 +64,7 @@ RSpec.describe 'api/colors', type: :request do
               description: 'Color value in rgb or hex format (e.g. rgb(120, 240, 15), #78f00f)'
 
     get('Get tetradic colors combination') do
+      tags 'Color'
       response(200, 'successful') do
         schema type: :array,
                items: { type: :string, description: 'Tetradic colors combination'}
@@ -89,6 +92,7 @@ RSpec.describe 'api/colors', type: :request do
               description: 'Color value in rgb or hex format (e.g. rgb(120, 240, 15), #78f00f)'
 
     get('Get analogous colors combination') do
+      tags 'Color'
       response(200, 'successful') do
         schema type: :array,
                items: { type: :string, description: 'Analogous colors combination'}
@@ -116,6 +120,7 @@ RSpec.describe 'api/colors', type: :request do
               description: 'Color value in rgb or hex format (e.g. rgb(120, 240, 15), #78f00f)'
 
     get('Get split complementary colors combination') do
+      tags 'Color'
       response(200, 'successful') do
         schema type: :array,
                items: { type: :string, description: 'Split complementary colors combination'}
