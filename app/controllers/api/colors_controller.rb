@@ -9,11 +9,13 @@ class Api::ColorsController < ApplicationController
 
   def show
     method_name = params[:method_name]
-    color = params[:color].downcase
 
+    return render status: :bad_request, json: { error: 'Combination method is not recognized'} unless ['complementary', 'triadic', 'tetradic', 'analogous', 'split_complementary'].include? method_name
+
+    color = params[:color]&.downcase
     color_type = determine_color_type(color)
 
-    return render status: :bad_request, json: { error: 'Hex or RGB color format required' } unless color_type
+    return render status: :bad_request, json: { error: 'Hex or RGB format color required' } unless color_type
 
     result = handle_calculation(method_name, color_type, color)
 
