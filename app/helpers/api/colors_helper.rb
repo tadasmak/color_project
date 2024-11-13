@@ -9,31 +9,31 @@ module Api::ColorsHelper
 
     calculated_colors = case method_name
     when 'complementary'
-      complementary(hsl_array, color_type)
+      handle_complementary(hsl_array, color_type)
     when 'triadic'
-      triadic(hsl_array, color_type)
+      handle_triadic(hsl_array, color_type)
     when 'tetradic'
-      tetradic(hsl_array, color_type)
+      handle_tetradic(hsl_array, color_type)
     when 'analogous'
-      analogous(hsl_array, color_type)
+      handle_analogous(hsl_array, color_type)
     when 'split_complementary'
-      split_complementary(hsl_array, color_type)
+      handle_split_complementary(hsl_array, color_type)
     when 'monochromatic'
-      monochromatic(hsl_array, color_type)
+      handle_monochromatic(hsl_array, color_type)
     end
 
     calculated_colors.each { |c| result.push(c) }
     result
   end
     
-  def complementary(hsl_array, color_type)
+  def handle_complementary(hsl_array, color_type)
     color1 = hsl_array.dup
     color1[0] = (color1[0] + 180) % 360
 
     [convert_to_color_type(color1, color_type)]
   end
 
-  def triadic(hsl_array, color_type)
+  def handle_triadic(hsl_array, color_type)
     colors = []
 
     for i in 1..2 do
@@ -45,7 +45,7 @@ module Api::ColorsHelper
     colors
   end
 
-  def tetradic(hsl_array, color_type)
+  def handle_tetradic(hsl_array, color_type)
     colors = []
 
     for i in 1..3 do
@@ -57,7 +57,7 @@ module Api::ColorsHelper
     colors
   end
 
-  def analogous(hsl_array, color_type)
+  def handle_analogous(hsl_array, color_type)
     colors = []
 
     color1 = hsl_array.dup
@@ -71,7 +71,7 @@ module Api::ColorsHelper
     colors
   end
 
-  def split_complementary(hsl_array, color_type)
+  def handle_split_complementary(hsl_array, color_type)
     colors = []
 
     color1 = hsl_array.dup
@@ -88,7 +88,7 @@ module Api::ColorsHelper
     colors
   end
 
-  def monochromatic(hsl_array, color_type)
+  def handle_monochromatic(hsl_array, color_type)
     # TODO: implement monochromatic (there are no exact calculations)
     # after front-end is done
   end

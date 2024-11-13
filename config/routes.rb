@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   namespace :api do
-    get "colors/:method_name", to: "colors#show"
+    get "colors/complementary", to: "colors#complementary"
+    get "colors/triadic", to: "colors#triadic"
+    get "colors/tetradic", to: "colors#tetradic"
+    get "colors/analogous", to: "colors#analogous"
+    get "colors/split_complementary", to: "colors#split_complementary"
   end
 end

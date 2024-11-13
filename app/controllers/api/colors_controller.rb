@@ -1,24 +1,34 @@
 class Api::ColorsController < ApplicationController
   include Api::ColorsHelper
-  # TODO: create an API server to have these APIs:
-  # GET /colors/complementary which would return a complementary color combination by param[:color]
-  # GET /colors/triadic which would return a triadic color combination by param[:color]
-  # GET /colors/tetradic which would return a tetradic color combination by param[:color]
-  # GET /colors/analogous which would return a analogous color combination by param[:color]
-  # GET /colors/split_complementary which would return a split_complementary color combination by param[:color]
 
-  def show
-    method_name = params[:method_name]
+  before_action :validate_color, only: [:complementary, :triadic, :tetradic, :analogous, :split_complementary]
 
-    return render status: :bad_request, json: { error: 'Combination method is not recognized'} unless ['complementary', 'triadic', 'tetradic', 'analogous', 'split_complementary'].include? method_name
+  def complementary
+    render json: handle_calculation('complementary', @color_type, @color)
+  end
 
-    color = params[:color]&.downcase
-    color_type = determine_color_type(color)
+  def triadic
+    render json: handle_calculation('triadic', @color_type, @color)
+  end
 
-    return render status: :bad_request, json: { error: 'Hex or RGB format color required' } unless color_type
+  def tetradic
+    render json: handle_calculation('tetradic', @color_type, @color)
+  end
 
-    result = handle_calculation(method_name, color_type, color)
+  def analogous
+    render json: handle_calculation('analogous', @color_type, @color)
+  end
 
-    render json: result
+  def split_complementary
+    render json: handle_calculation('split_complementary', @color_type, @color)
+  end
+
+  private
+
+  def validate_color
+    @color = params[:color]&.downcase
+    @color_type = determine_color_type(@color)
+
+    render status: :bad_request, json: { error: 'Hex or RGB format color required' } unless @color_type
   end
 end
