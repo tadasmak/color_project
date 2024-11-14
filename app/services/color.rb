@@ -47,7 +47,7 @@ class Color
   end
 
   def hsl?
-    color.is_a?(String) && color.match?(/^hsl\(\s*(\d{1,3}(?:\.\d+)?)\s*,\s*(\d{1,2}(?:\.\d+)?|100)%\s*,\s*(\d{1,2}(?:\.\d+)?|100)%\s*\)$/) &&
+    color.is_a?(String) && color.match?(/^hsl\(\s*(\d{1,3}(?:\.\d+)?)\s*,\s*(\d{1,2}(?:\.\d+)?|100(?:\.0+)?)%\s*,\s*(\d{1,2}(?:\.\d+)?|100(?:\.0+)?)%\s*\)$/) &&
     $1.to_i.between?(0, 360) &&
     $2.to_f.between?(0, 100) &&
     $3.to_f.between?(0, 100)
