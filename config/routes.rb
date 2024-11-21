@@ -15,5 +15,7 @@ Rails.application.routes.draw do
     get "colors/tetradic", to: "colors#tetradic"
     get "colors/analogous", to: "colors#analogous"
     get "colors/split_complementary", to: "colors#split_complementary"
+
+    get "login", to: "authentication#login"
   end
 end
