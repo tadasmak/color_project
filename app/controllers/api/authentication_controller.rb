@@ -1,4 +1,6 @@
 class Api::AuthenticationController < ApplicationController
+  skip_before_action :authorize_request, only: [:login]
+
   def login
     email = params[:email]
     password = params[:password]
@@ -13,12 +15,12 @@ class Api::AuthenticationController < ApplicationController
   
   private
 
-  def valid_credentials?
+  def valid_credentials?(email, password)
     email == ENV['APP_USER'] && password == ENV['APP_PASSWORD']
   end
 
   def generate_token(payload)
-    payload[:expire_time] = 24.hours.from_now.to_i
-    JWT.encode(payload, Rails.application.secrets.secret_key_base)
+    payload[:exp] = 24.hours.from_now.to_i
+    JWT.encode(payload, Rails.application.credentials.secret_key_base)
   end
 end
