@@ -21,6 +21,6 @@ class Api::AuthenticationController < ApplicationController
 
   def generate_token(payload)
     payload[:exp] = 24.hours.from_now.to_i
-    JWT.encode(payload, Rails.application.credentials.secret_key_base)
+    JWT.encode(payload, ENV['SECRET_KEY_BASE'])
   end
 end

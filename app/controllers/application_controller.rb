@@ -8,13 +8,13 @@ class ApplicationController < ActionController::Base
   rescue JWT::ExpiredSignature
     render json: { error: 'Token has expired' }, status: :unauthorized
   rescue JWT::DecodeError
-    render json: { error: 'Unauthorized for some reason' }, status: :unauthorized
+    render json: { error: 'Unauthorized due to decoding error' }, status: :unauthorized
   end
 
   private
 
   def decode_token(token)
-    secret = Rails.application.credentials.secret_key_base
+    secret = ENV['SECRET_KEY_BASE']
     decoded = JWT.decode(token, secret, true, algorithm: 'HS256')
     decoded[0].symbolize_keys
   end
