@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
 
   def authorize_request
     token = request.headers['Authorization']&.split(' ')&.last
+    return render json: { error: 'Missing token' }, status: :unauthorized if token.nil?
+
     decoded = decode_token(token)
     @current_user = decoded[:email] if decoded
   rescue JWT::ExpiredSignature
