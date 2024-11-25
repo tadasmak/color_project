@@ -21,6 +21,16 @@ RSpec.configure do |config|
         title: 'Color project API',
         version: '2024.11.13'
       },
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: :http,
+            scheme: :bearer,
+            bearerFormat: JWT
+          }
+        }
+      },
+      security: [ { bearerAuth: [] } ],
       paths: {}
     }
   }
