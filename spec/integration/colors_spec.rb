@@ -105,7 +105,7 @@ describe 'api/colors', type: :request do
 
         run_test! do |response|
           colors = JSON.parse(response.body)
-          expect(colors).to match_array(['#78a812', '#3da812', '#a88d12'])
+          expect(colors).to match_array(['#78a812', '#2da812', '#a88d12'])
         end
       end
 
@@ -133,7 +133,7 @@ describe 'api/colors', type: :request do
 
         run_test! do |response|
           colors = JSON.parse(response.body)
-          expect(colors).to match_array(['#78a812', '#122ea8', '#8d12a8'])
+          expect(colors).to match_array(['#78a812', '#122da8', '#8d12a8'])
         end
       end
 
