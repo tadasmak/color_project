@@ -4,23 +4,139 @@
     "title": "Color project API",
     "version": "2024.11.13"
   },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": [
+
+      ]
+    }
+  ],
   "paths": {
-    "/api/colors/complementary": {
-      "parameters": [
-        {
-          "name": "color",
-          "in": "query",
-          "required": true,
-          "description": "Color value in rgb or hex format (e.g. rgb(120, 240, 15), #78f00f)",
-          "schema": {
-            "type": "string"
+    "/api/login": {
+      "post": {
+        "summary": "Log in to get authentication JWT Token",
+        "tags": [
+          "Authentication"
+        ],
+        "security": [
+
+        ],
+        "parameters": [
+
+        ],
+        "description": "Returns a bearer JWT token upon successful authentication",
+        "responses": {
+          "200": {
+            "description": "successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    }
+                  },
+                  "required": [
+                    "token"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "no credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "invalid credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              }
+            }
           }
         }
-      ],
+      }
+    },
+    "/api/colors/complementary": {
       "get": {
         "summary": "Get complementary colors combination",
         "tags": [
           "Color"
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "color",
+            "in": "query",
+            "required": true,
+            "description": "Color value in rgb or hex format (e.g. rgb(120, 240, 15), #78f00f)",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
