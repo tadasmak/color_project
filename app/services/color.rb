@@ -86,19 +86,19 @@ class Color
     if chroma > 0
       case max
       when r
-        hue = ((g - b) / chroma) % 6
+        hue = ((g - b) / chroma) % 6.0
       when g
-        hue = (b - r) / chroma + 2
+        hue = (b - r) / chroma + 2.0
       when b
-        hue = (r - g) / chroma + 4
+        hue = (r - g) / chroma + 4.0
       end
     end
 
-    hue = (hue * 60).round
+    hue = (hue * 60).round(1)
     hue += 360 if hue < 0
 
-    luminance = (max + min) / 2
-    saturation = chroma / (1 - (2 * luminance - 1).abs) if chroma > 0
+    luminance = (max + min) / 2.0
+    saturation = chroma / (1 - (2.0 * luminance - 1).abs) if chroma > 0
 
     saturation = (saturation * 100).round(1)
     luminance = (luminance * 100).round(1)
@@ -114,8 +114,8 @@ class Color
     saturation /= 100.0
     luminance /= 100.0
 
-    chroma = (1 - (2 * luminance - 1).abs) * saturation
-    x = chroma * (1 - ((hue / 60.0) % 2 - 1).abs)
+    chroma = (1.0 - (2.0 * luminance - 1).abs) * saturation
+    x = chroma * (1.0 - ((hue / 60.0) % 2.0 - 1).abs)
     m = luminance - chroma / 2.0
 
     if (0 <= hue && hue < 60)
@@ -144,9 +144,9 @@ class Color
       b = x
     end
 
-    r = ((r + m) * 255).round
-    g = ((g + m) * 255).round
-    b = ((b + m) * 255).round
+    r = ((r + m) * 255.0).round
+    g = ((g + m) * 255.0).round
+    b = ((b + m) * 255.0).round
 
     [r, g, b]
   end
