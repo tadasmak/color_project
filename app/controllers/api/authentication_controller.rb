@@ -5,6 +5,8 @@ class Api::AuthenticationController < ApplicationController
     email = params[:email]
     password = params[:password]
 
+    return render json: { error: 'Empty email or password' }, status: :bad_request if email.blank? || password.blank?
+
     if valid_credentials?(email, password)
       token = generate_token(email:)
       render json: { token: token }, status: :ok
