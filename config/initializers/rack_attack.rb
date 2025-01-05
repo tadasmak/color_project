@@ -1,6 +1,6 @@
 class Rack::Attack
   # Throttle requests per IP address (100 requests per hour)
-  throttle('req/ip', limit: 3, period: 1.hour) do |req|
+  throttle('req/ip', limit: 50, period: 1.hour) do |req|
     req.ip
   end
 
