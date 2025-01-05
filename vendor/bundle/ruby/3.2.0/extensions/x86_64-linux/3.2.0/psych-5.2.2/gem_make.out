@@ -1,0 +1,30 @@
+current directory: /home/tadasmak/color_project/vendor/bundle/ruby/3.2.0/gems/psych-5.2.2/ext/psych
+/home/tadasmak/.rvm/rubies/ruby-3.2.2/bin/ruby extconf.rb
+checking for yaml.h... yes
+checking for yaml_get_version() in -lyaml... yes
+creating Makefile
+
+current directory: /home/tadasmak/color_project/vendor/bundle/ruby/3.2.0/gems/psych-5.2.2/ext/psych
+make DESTDIR\= sitearchdir\=./.gem.20250105-7581-g0dd8s sitelibdir\=./.gem.20250105-7581-g0dd8s clean
+cd libyaml && make clean
+/bin/sh: 1: cd: can't cd to libyaml
+make: [Makefile:283: clean-so] Error 2 (ignored)
+
+current directory: /home/tadasmak/color_project/vendor/bundle/ruby/3.2.0/gems/psych-5.2.2/ext/psych
+make DESTDIR\= sitearchdir\=./.gem.20250105-7581-g0dd8s sitelibdir\=./.gem.20250105-7581-g0dd8s
+compiling psych.c
+compiling psych_emitter.c
+compiling psych_parser.c
+compiling psych_to_ruby.c
+compiling psych_yaml_tree.c
+linking shared-object psych.so
+
+current directory: /home/tadasmak/color_project/vendor/bundle/ruby/3.2.0/gems/psych-5.2.2/ext/psych
+make DESTDIR\= sitearchdir\=./.gem.20250105-7581-g0dd8s sitelibdir\=./.gem.20250105-7581-g0dd8s install
+/usr/bin/install -m 0755 psych.so ./.gem.20250105-7581-g0dd8s
+
+current directory: /home/tadasmak/color_project/vendor/bundle/ruby/3.2.0/gems/psych-5.2.2/ext/psych
+make DESTDIR\= sitearchdir\=./.gem.20250105-7581-g0dd8s sitelibdir\=./.gem.20250105-7581-g0dd8s clean
+cd libyaml && make clean
+/bin/sh: 1: cd: can't cd to libyaml
+make: [Makefile:283: clean-so] Error 2 (ignored)

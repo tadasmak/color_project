@@ -1,0 +1,19 @@
+current directory: /home/tadasmak/color_project/vendor/bundle/ruby/3.2.0/gems/debug-1.10.0/ext/debug
+/home/tadasmak/.rvm/rubies/ruby-3.2.2/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /home/tadasmak/color_project/vendor/bundle/ruby/3.2.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250105-7581-sm7ucq sitelibdir\=./.gem.20250105-7581-sm7ucq clean
+
+current directory: /home/tadasmak/color_project/vendor/bundle/ruby/3.2.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250105-7581-sm7ucq sitelibdir\=./.gem.20250105-7581-sm7ucq
+compiling debug.c
+compiling iseq_collector.c
+linking shared-object debug/debug.so
+
+current directory: /home/tadasmak/color_project/vendor/bundle/ruby/3.2.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250105-7581-sm7ucq sitelibdir\=./.gem.20250105-7581-sm7ucq install
+/usr/bin/install -m 0755 debug.so ./.gem.20250105-7581-sm7ucq/debug
+
+current directory: /home/tadasmak/color_project/vendor/bundle/ruby/3.2.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250105-7581-sm7ucq sitelibdir\=./.gem.20250105-7581-sm7ucq clean
