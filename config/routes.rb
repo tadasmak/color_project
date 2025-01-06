@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root 'home#index'
+
   namespace :api do
     get "colors/complementary", to: "colors#complementary"
     get "colors/triadic", to: "colors#triadic"
