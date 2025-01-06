@@ -1,7 +1,7 @@
 # Color Combinations API
 
 ## Overview
-The Color Combinations API Project provides a variety of color combination endpoints, allowing users to generate color combinations in complementary, triadic, tetradic, analogous, and split-complementary manners. The API supports both RGB and HEX color formats and includes JWT authentication for "secure" access.
+The Color Combinations API Project provides a variety of color combination endpoints, allowing users to generate color combinations in complementary, triadic, tetradic, analogous, and split-complementary. The API supports both RGB and HEX color formats and includes JWT authentication for "secure" access.
 
 ## URL
 [https://color-project-889dc471a78a.herokuapp.com/](https://color-project-889dc471a78a.herokuapp.com/)

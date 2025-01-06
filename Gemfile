@@ -26,7 +26,11 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# Used for API rate delimiter
 gem 'rack-attack'
+
+# For rendering Markdown .md files into HTML
+gem 'redcarpet'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
