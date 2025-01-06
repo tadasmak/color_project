@@ -1,5 +1,5 @@
 class Api::AuthenticationController < ApplicationController
-  skip_before_action :authorize_request, only: [:login]
+  skip_before_action :authorize_api_request, only: [:login]
 
   def login
     email = params[:email]

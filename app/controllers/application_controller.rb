@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
-  before_action :authorize_request
+  before_action :authorize_api_request, if: :api_controller?
 
-  def authorize_request
+  def authorize_api_request
     token = request.headers['Authorization']&.split(' ')&.last
     return render json: { error: 'Missing token' }, status: :unauthorized if token.nil?
 
@@ -19,5 +19,9 @@ class ApplicationController < ActionController::API
     secret = ENV['SECRET_KEY_BASE']
     decoded = JWT.decode(token, secret, true, algorithm: 'HS256')
     decoded[0].symbolize_keys
+  end
+
+  def api_controller?
+    self.class.name.start_with?('Api::')
   end
 end
