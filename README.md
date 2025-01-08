@@ -15,6 +15,7 @@ See the [Color Combinations API docs](https://color-project-889dc471a78a.herokua
 - **Swagger API Documentation**: Easily explore and test available endpoints through Swagger.
 - **JWT Authentication**: Access with JSON Web Token (JWT).
 - **24-hour JWT Token**: Generated tokens are valid for 24 hours.
+- **API rate delimiter**: API requests are limited to 50/hour.
 
 ## API Endpoints
 ### `/api/complementary`
@@ -56,4 +57,4 @@ Generates a JWT token for authentication.
   - `email` (required): User’s email address (use `example@gmail.com` for successful call).
   - `password` (required): User’s password (use `secure_password` for successful call).
 - **Response**:  
-  - `token`: A JWT token valid for 24 hours.  
+  - `token`: A JWT token valid for 24 hours.
